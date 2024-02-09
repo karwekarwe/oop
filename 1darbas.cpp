@@ -30,6 +30,14 @@ int main() {
         
         cout << endl;
     }
+
+    
+     cout << "Vardas" << "Pavarde" << "Galutinis (Vid.)" << endl;
+    for (int i = 0; i < studNum; i++) {
+        cout << a[i].vardas << a[i].pavarde << 0.4 * a[i].tarp + 0.6 * a[i].egz << endl;
+        cout << endl;
+    }
 }
+
 
  
