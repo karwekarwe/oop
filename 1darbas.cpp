@@ -32,11 +32,13 @@ int main() {
     }
 
     
-     cout << "Vardas" << "Pavarde" << "Galutinis (Vid.)" << endl;
-    for (int i = 0; i < studNum; i++) {
-        cout << a[i].vardas << a[i].pavarde << 0.4 * a[i].tarp + 0.6 * a[i].egz << endl;
+     cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis (Vid.)" << endl;
+     cout << "--------------------------------------------" << endl;
+        for (int i = 0; i < studNum; i++) {
+        cout << left << setw(15) << a[i].vardas << setw(15) << a[i].pavarde << fixed << setprecision(2) << 0.4 * a[i].tarp + 0.6 * a[i].egz << endl;
         cout << endl;
-    }
+        }
+
 }
 
 
