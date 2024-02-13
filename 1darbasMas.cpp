@@ -1,87 +1,147 @@
 #include <iostream>
-#include <iomanip> 
 #include <string>
-#include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
 struct Stud {
     string vardas;
     string pavarde;
-    double tarp;
-    int egz;
+    int *namuDarbai;
+ // int ndCount;
+    int egzaminas;
+    double galutinis;
 };
 
 int main() {
-    int studNum, pazNum, pazymys;
-    double galutinis;
-    string verBudas;
+    int studSk = 0;
+    int balas, temNDCount;
+    char pabaiga;
 
-    cout << "kiek studentu? " <<endl;
-    cin >> studNum;
-    cout << "kiek namu darbu pazymiu? " <<endl;
-    cin >> pazNum;
-    cout << "Vidurkis ar mediana?" <<endl;
-    cin >> verBudas;
-    transform(verBudas.begin(), verBudas.end(), verBudas.begin(), ::tolower); 
-  
-    Stud* a = new Stud[studNum]; 
 
-        for (int i = 0; i < studNum; ++i) {    
-            
-            double avg = 0, med = 0;
-            double* pazymiai = new double[pazNum];
+    Stud *studentai = nullptr;
 
-            cout << "vardas " << i+1 <<endl;
-            cin >> a[i].vardas;
-            cout << "pavarde " << i+1 <<endl;
-            cin >> a[i].pavarde;
+    while (true) {
+        cout << "Vardas: ";
+        cin >> studentai[studSk].vardas; //vardas
+        cout << "Pavarde: ";
+        cin >> studentai[studSk].pavarde; //pavarde
 
-            for (int j = 0; j < pazNum; j++) {
-                cout << "pazymys" << j+1 << ": " <<endl;
-                cin >> pazymys;
-                avg += pazymys;
-                pazymiai[j] = pazymys; 
+        cout << "Namu darbu balai (-1 norint baigti): ";
+
+        int *tempND = new int[100]; 
+
+        while (true) {
+            cin >> balas;
+            if (balas == -1){
+            break;
             }
-
-            cout << "egzamino rez "<< i+1 <<endl;
-            cin >> a[i].egz;
-               
-            if (verBudas == "vidurkis") {
-            a[i].tarp = avg/pazNum;  //vidurkis 
-            cout <<endl;
-            }
-
-            else if (verBudas == "mediana") {
-            sort(pazymiai, pazymiai + pazNum);
-            if (pazNum % 2 == 0) {
-                med = (pazymiai[pazNum / 2 - 1] + pazymiai[pazNum / 2]) / 2.0;
-            } else {
-                med = pazymiai[pazNum / 2];
-            }       
-            a[i].tarp = med;  //mediana 
-            cout <<endl;
-            }   
-
-            delete[] pazymiai;  
-
+            tempND[temNDCount++] = balas;
         }
-        
-        cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15); 
-        if (verBudas == "vidurkis") {cout  << "Galutinis (Vid.)" << endl; }
-        else if (verBudas == "mediana") {cout  << "Galutinis (Med.)" << endl;}
-        cout << "--------------------------------------------" << endl;
+        studentai[studSk].namuDarbai = tempND; //nd array
 
-            for (int i = 0; i < studNum; i++) {
-            galutinis = 0.4 * a[i].tarp + 0.6 * a[i].egz;
 
-            cout << left << setw(15) << a[i].vardas << setw(15) << a[i].pavarde << fixed << setprecision(2) << galutinis << endl;
-            cout << endl;
-            }
-           
-    delete[] a; 
-return 0;
+        cout << "Iveskite egzamino bala: ";
+        cin >> studentai[studSk].egzaminas; //egzaminas
+
+
+        studSk++;
+        cout << "Ar baigete ivesti studentus? (y/n): ";
+        cin >> pabaiga;
+        if (pabaiga == 'y' || pabaiga == 'Y'){
+            break;
+        }
+
+    delete tempND;
+    }
+
+
+
+
+
+    delete studentai;
 }
 
+/*int main() {
+    int studentuSkaicius = 0;
+    int namuDarbuSkaicius = 0;
 
- 
+    // Studentų masyvas
+    Studentas *studentai = nullptr;
+
+    // Duomenų įvedimas
+    string vardas, pavarde;
+    int balas;
+    char baigti;
+    while (true) {
+        cout << "Iveskite studento varda: ";
+        cin >> vardas;
+        cout << "Iveskite studento pavarde: ";
+        cin >> pavarde;
+        cout << "Iveskite namu darbu balus (-1 norint baigti): ";
+        int *tempNamuDarbai = new int[100]; // Pakeičiam namų darbų dydį
+        int tempNamuDarbaiKiekis = 0;
+        while (true) {
+            cin >> balas;
+            if (balas == -1) {
+                break;
+            }
+            tempNamuDarbai[tempNamuDarbaiKiekis++] = balas;
+        }
+        cout << "Iveskite egzamino bala: ";
+        cin >> balas;
+
+        // Pridedame naują studentą į masyvą
+        Studentas *tempStudentai = new Studentas[studentuSkaicius + 1];
+        for (int i = 0; i < studentuSkaicius; ++i) {
+            tempStudentai[i] = studentai[i];
+        }
+        tempStudentai[studentuSkaicius].vardas = vardas;
+        tempStudentai[studentuSkaicius].pavarde = pavarde;
+        tempStudentai[studentuSkaicius].namuDarbai = tempNamuDarbai;
+        tempStudentai[studentuSkaicius].namuDarbaiKiekis = tempNamuDarbaiKiekis;
+        tempStudentai[studentuSkaicius].egzaminas = balas;
+
+        delete[] studentai;
+        studentai = tempStudentai;
+        ++studentuSkaicius;
+
+        cout << "Ar baigete ivesti studentus? (y/n): ";
+        cin >> baigti;
+        if (baigti == 'y' || baigti == 'Y') {
+            break;
+        }
+    }
+
+    // Pasirinkimas dėl galutinio balo skaičiavimo metodo
+    char pasirinkimas;
+    cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
+    cin >> pasirinkimas;
+
+    // Skaičiavimas ir išvedimas
+    if (pasirinkimas == 'V' || pasirinkimas == 'v') {
+        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Vid.)" << endl;
+        cout << string(50, '-') << endl;
+        for (int i = 0; i < studentuSkaicius; ++i) {
+            studentai[i].galutinis = vidurkis(studentai[i]);
+            cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
+        }
+    } else if (pasirinkimas == 'M' || pasirinkimas == 'm') {
+        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Med.)" << endl;
+        cout << string(50, '-') << endl;
+        for (int i = 0; i < studentuSkaicius; ++i) {
+            studentai[i].galutinis = mediana(studentai[i]);
+            cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
+        }
+    } else {
+        cout << "Neteisingas pasirinkimas." << endl;
+    }
+
+    // Atlaisvinamas naudojamas atmintis
+    for (int i = 0; i < studentuSkaicius; ++i) {
+        delete[] studentai[i].namuDarbai;
+    }
+    delete[] studentai;
+    return 0;
+}  
+*/
