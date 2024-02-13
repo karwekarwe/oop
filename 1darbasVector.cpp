@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <limits>
+#include <cstdlib> 
 
 using namespace std;
 
@@ -21,10 +22,12 @@ double mediana(Stud&);
 int main() {
     int m = 0; // studentu sk
     int balas, egzBalas;
-    char pabaiga;
+    char pabaiga, input;;
 
     vector<Stud> studentai;
   
+    cout << "Pasirinkite namu darbų ivesties būdą (A - atsitiktinai, R - ranka): ";
+    cin >> input;
 
     while (true) {
 
@@ -35,30 +38,33 @@ int main() {
         cout << "Pavarde: "<< endl;
         cin >> naujasS.pavarde; //pavarde i struct
 
-        int i = 1;
-        do {
-            cout << "Namu darbu "<< i <<" balas (-1 norint baigti): " << endl;
-            cin >> balas;
 
-            if (cin.fail() || balas == 0 || balas < -1 || balas > 10) {
-                cout << "Įvekite skaičių nuo 1 iki 10" << endl;
-                cin.clear(); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                continue; 
-            }
-            if (balas == -1){
-                if (naujasS.namuDarbai.empty()) {
-                    cout << "Įveskite bent 1 pažymį: " << endl;
+        if (input == 'R' || input == 'r'){
+        int i = 1;
+            do {
+                cout << "Namu darbu "<< i <<" balas (-1 norint baigti): " << endl;
+                cin >> balas;
+
+                if (cin.fail() || balas == 0 || balas < -1 || balas > 10) {
+                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     continue; 
-                } 
-                else {
-                    break; 
                 }
-                }
+                if (balas == -1){
+                    if (naujasS.namuDarbai.empty()) {
+                        cout << "Įveskite bent 1 pažymį: " << endl;
+                        continue; 
+                    } 
+                    else {
+                        break; 
+                    }
+                    }
+            
+                naujasS.namuDarbai.push_back(balas); //namu darbu balai i struct
+                i++;
+            } while (true);
         
-            naujasS.namuDarbai.push_back(balas); //namu darbu balai i struct
-            i++;
-        } while (true);
 
         do {
             cout << "Iveskite egzamino bala: ";
@@ -76,6 +82,16 @@ int main() {
             }      
         } while (true);
 
+        }
+        else if (input == 'A' || input == 'a'){
+            int numBal = rand() % 10 + 1;
+            for (int i = 0; i < numBal; i++) {
+                naujasS.namuDarbai.push_back(rand() % 10 + 1); // random nd i struct
+            }
+            cout << numBal << "namu darbu balu sk" << endl;
+                naujasS.egzaminas = rand() % 10 + 1; // random egzaminas i struct
+
+        }
 
         studentai.push_back(naujasS); 
 

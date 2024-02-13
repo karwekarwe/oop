@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <limits>
+#include <random>
 
 using namespace std;
 
@@ -22,11 +23,14 @@ int main() {
     int m = 0; // studentu sk
     int n = 0; // namu darbu sk
     int balas, egzBalas;
-    char pabaiga;
-    
+    char pabaiga, input;    
 
     Stud *studentai = new Stud[100];
     int *tempND = new int[100];
+
+    cout << "Pasirinkite namu darbų ivesties būdą (A - atsitiktinai, R - ranka): ";
+    cin >> input;
+
 
     while (true) {
         cout << "Vardas: "<< endl;
@@ -34,51 +38,62 @@ int main() {
         cout << "Pavarde: "<< endl;
         cin >> studentai[m].pavarde; //pavarde i struct
         int i = 1;
-        do{
-           
-            cout << "Namu darbu "<< i <<" balas (-1 norint baigti): "<< endl;
-            cin >> balas;
 
-             if (cin.fail() || balas == 0 || balas < -1 || balas > 10) {
-                cout << "Įvekite skaičių nuo 1 iki 10" << endl;
-                cin.clear(); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                continue; 
-            }
-            if (balas == -1){
-                if (n == 0) {
-                    cout << "Įveskite bent 1 pažymį: " << endl;
+        if (input == 'R' || input == 'r'){
+            do{
+                cout << "Namu darbu "<< i <<" balas (-1 norint baigti): "<< endl;
+                cin >> balas;
+
+                if (cin.fail() || balas == 0 || balas < -1 || balas > 10) {
+                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    continue; 
+                }
+                if (balas == -1){
+                    if (n == 0) {
+                        cout << "Įveskite bent 1 pažymį: " << endl;
+                        continue; 
+                    }
+                    else {
+                        break; 
+                    }
+                }
+
+                
+                tempND[n++] = balas;
+                studentai[m].namuDarbai = tempND; //nd array i struct
+                studentai[m].ndCount = n;
+                i++;
+            } while (true);
+       
+            do {
+                cout << "Iveskite egzamino bala: ";
+                            cin >> egzBalas;
+
+                if (cin.fail() || egzBalas < 1 || egzBalas > 10) {
+                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     continue; 
                 }
                 else {
-                    break; 
-                }
+                    studentai[m].egzaminas = egzBalas; // egzaminas i struct
+                    break;
+                }      
+            } while (true); 
+        }
+        else if (input == 'A' || input == 'a'){
+            int numBal = rand() % 10 + 1;
+            studentai[m].ndCount = numBal;
+            studentai[m].namuDarbai = new int[numBal];
+
+            for (int i = 0; i < numBal; i++) {
+                studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
             }
-
-               
-            tempND[n++] = balas;
-            studentai[m].namuDarbai = tempND; //nd array i struct
-            studentai[m].ndCount = n;
-            i++;
-        } while (true);
-
-        do {
-            cout << "Iveskite egzamino bala: ";
-                        cin >> egzBalas;
-
-            if (cin.fail() || egzBalas < 1 || egzBalas > 10) {
-                cout << "Įvekite skaičių nuo 1 iki 10" << endl;
-                cin.clear(); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                continue; 
-            }
-            else {
-                studentai[m].egzaminas = egzBalas; // egzaminas i struct
-                break;
-            }      
-  //          cin >> studentai[m].egzaminas; //egzaminas i struct
-
-        } while (true); 
+            cout << numBal << "namu darbu balu sk" << endl;
+                studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
+        }
 
             m++;
 
@@ -104,7 +119,7 @@ int main() {
 
     char pasirinkimas;
 
-        while (true) {
+    //    while (true) {
             cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
             cin >> pasirinkimas;
 
@@ -114,7 +129,7 @@ int main() {
                 for (int i = 0; i < m; ++i) {
                     studentai[i].galutinis = vidurkis(studentai[i]); // galutinis i struct
                     cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
-                break;
+     //           break;
                 }
             } 
             else if (pasirinkimas == 'M' || pasirinkimas == 'm') {
@@ -123,14 +138,19 @@ int main() {
                 for (int i = 0; i < m; ++i) {
                     studentai[i].galutinis = mediana(studentai[i]); // galutinis i struct
                     cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
-                break;
+     //          break;
                 }
             } 
             else {
                 cout << "Neteisinga įvestis." << endl;
             }
-        }
+      //  }
 
+        
+
+     for (int i = 0; i < m; ++i) {
+        delete[] studentai[i].namuDarbai;
+    }
     delete[] tempND;
     delete[] studentai;
 }
