@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -27,19 +28,20 @@ int main() {
 
     Stud *studentai = new Stud[100];
     int *tempND = new int[100];
+    srand(time(0));
 
-    cout << "Pasirinkite namu darbų ivesties būdą (A - atsitiktinai, R - ranka): ";
+    cout << "Pasirinkite programos eigą: \n 1. Įvestis ranka. \n 2. Generuoti namų darbų ir egzamino pažymius. \n 3. Generuoti ir pažymius, ir vardus bei pavardes. \n 4. Baigti darbą."<< endl;
     cin >> input;
 
 
     while (true) {
-        cout << "Vardas: "<< endl;
-        cin >> studentai[m].vardas; //vardas i struct
-        cout << "Pavarde: "<< endl;
-        cin >> studentai[m].pavarde; //pavarde i struct
-        int i = 1;
 
-        if (input == 'R' || input == 'r'){
+        if (input == '1'){
+            int i = 1;
+            cout << "Vardas: "<< endl;
+            cin >> studentai[m].vardas; //vardas i struct
+            cout << "Pavarde: "<< endl;
+            cin >> studentai[m].pavarde; //pavarde i struct
             do{
                 cout << "Namu darbu "<< i <<" balas (-1 norint baigti): "<< endl;
                 cin >> balas;
@@ -65,6 +67,8 @@ int main() {
                 studentai[m].namuDarbai = tempND; //nd array i struct
                 studentai[m].ndCount = n;
                 i++;
+
+
             } while (true);
        
             do {
@@ -83,7 +87,12 @@ int main() {
                 }      
             } while (true); 
         }
-        else if (input == 'A' || input == 'a'){
+        else if (input == '2'){
+            cout << "Vardas: "<< endl;
+            cin >> studentai[m].vardas; //vardas i struct
+            cout << "Pavarde: "<< endl;
+            cin >> studentai[m].pavarde; //pavarde i struct
+
             int numBal = rand() % 10 + 1;
             studentai[m].ndCount = numBal;
             studentai[m].namuDarbai = new int[numBal];
@@ -91,8 +100,33 @@ int main() {
             for (int i = 0; i < numBal; i++) {
                 studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
             }
-            cout << numBal << "namu darbu balu sk" << endl;
                 studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
+        }
+        else if (input == '3'){
+
+            string vardai[] = {"Jonas", "Petras", "Antanas", "Juozas", "Ona", "Marija", "Gražina", "Laima"};
+            string pavardes[] = {"Jonaitis", "Petraitis", "Antanaitis", "Juozaitis", "Onaitė", "Marijaitė", "Gražinaitė", "Laimaitė"};
+
+
+            int numBal = rand() % 10 + 1;
+            studentai[m].ndCount = numBal;
+            studentai[m].namuDarbai = new int[numBal];
+
+            for (int i = 0; i < numBal; i++) {
+                studentai[m].vardas = vardai[rand() % (sizeof(vardai) / sizeof(vardai[0]))]; // vardas i struct
+                studentai[m].pavarde = pavardes[rand() % (sizeof(pavardes) / sizeof(pavardes[0]))]; //pavarde i struct
+
+                studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
+            }
+            studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
+            cout << "Sugeneruotas studentas " << studentai[m].vardas << " " << studentai[m].pavarde << endl;
+
+        }
+        else if (input == '4') {
+        exit(0);
+        } 
+        else {
+        cout << "Neteisinga įvestis."<<endl;
         }
 
             m++;
@@ -119,7 +153,7 @@ int main() {
 
     char pasirinkimas;
 
-    //    while (true) {
+
             cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
             cin >> pasirinkimas;
 
@@ -129,7 +163,7 @@ int main() {
                 for (int i = 0; i < m; ++i) {
                     studentai[i].galutinis = vidurkis(studentai[i]); // galutinis i struct
                     cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
-     //           break;
+
                 }
             } 
             else if (pasirinkimas == 'M' || pasirinkimas == 'm') {
@@ -138,20 +172,19 @@ int main() {
                 for (int i = 0; i < m; ++i) {
                     studentai[i].galutinis = mediana(studentai[i]); // galutinis i struct
                     cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
-     //          break;
+
                 }
             } 
             else {
                 cout << "Neteisinga įvestis." << endl;
             }
-      //  }
+
 
         
 
      for (int i = 0; i < m; ++i) {
         delete[] studentai[i].namuDarbai;
     }
-    delete[] tempND;
     delete[] studentai;
 }
 

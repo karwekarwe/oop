@@ -5,6 +5,8 @@
 #include <vector>
 #include <limits>
 #include <cstdlib> 
+#include <ctime>
+
 
 using namespace std;
 
@@ -25,21 +27,21 @@ int main() {
     char pabaiga, input;;
 
     vector<Stud> studentai;
-  
-    cout << "Pasirinkite namu darbų ivesties būdą (A - atsitiktinai, R - ranka): ";
+    srand(time(0));
+ 
+    cout << "Pasirinkite programos eigą: \n 1. Įvestis ranka. \n 2. Generuoti namų darbų ir egzamino pažymius. \n 3. Generuoti ir pažymius, ir vardus bei pavardes. \n 4. Baigti darbą."<< endl;
     cin >> input;
 
     while (true) {
 
         Stud naujasS;
 
+        if (input == '1'){
         cout << "Vardas: "<< endl;
         cin >> naujasS.vardas; //vardas i struct
         cout << "Pavarde: "<< endl;
         cin >> naujasS.pavarde; //pavarde i struct
 
-
-        if (input == 'R' || input == 'r'){
         int i = 1;
             do {
                 cout << "Namu darbu "<< i <<" balas (-1 norint baigti): " << endl;
@@ -83,14 +85,40 @@ int main() {
         } while (true);
 
         }
-        else if (input == 'A' || input == 'a'){
+        else if (input == '2'){
+            cout << "Vardas: "<< endl;
+            cin >> naujasS.vardas; //vardas i struct
+            cout << "Pavarde: "<< endl;
+            cin >> naujasS.pavarde; //pavarde i struct
+
             int numBal = rand() % 10 + 1;
             for (int i = 0; i < numBal; i++) {
                 naujasS.namuDarbai.push_back(rand() % 10 + 1); // random nd i struct
             }
-            cout << numBal << "namu darbu balu sk" << endl;
                 naujasS.egzaminas = rand() % 10 + 1; // random egzaminas i struct
 
+        }
+        else if (input == '3'){
+
+            vector<string> vardai = {"Jonas", "Petras", "Antanas", "Juozas", "Ona", "Marija", "Gražina", "Laima"};
+            vector<string> pavardes = {"Jonaitis", "Petraitis", "Antanaitis", "Juozaitis", "Onaitė", "Marijaitė", "Gražinaitė", "Laimaitė"};
+
+            int numBal = rand() % 10 + 1;
+            for (int i = 0; i < numBal; i++) {
+                naujasS.vardas = vardai[rand() % vardai.size()]; // vardas i struct
+                naujasS.pavarde = pavardes[rand() % pavardes.size()]; //pavarde i struct
+
+                naujasS.namuDarbai.push_back(rand() % 10 + 1); // random nd i struct                
+            }
+                naujasS.egzaminas = rand() % 10 + 1; // random egzaminas i struct
+                cout << "Sugeneruotas studentas " << naujasS.vardas << " " << naujasS.pavarde << endl;
+
+        } 
+        else if (input == '4') {
+        exit(0);
+        } 
+        else {
+        cout << "Neteisinga įvestis."<<endl;
         }
 
         studentai.push_back(naujasS); 
@@ -142,6 +170,8 @@ int main() {
             cout << "Neteisinga įvestis." << endl;
         }
     }
+
+
     return 0;
 
 }
