@@ -24,19 +24,25 @@ int main() {
     int m = 0; // studentu sk
     int n = 0; // namu darbu sk
     int balas, egzBalas;
-    char pabaiga, input;    
+    char pabaiga;    
 
     Stud *studentai = new Stud[100];
     int *tempND = new int[100];
     srand(time(0));
 
+    while (true) {
+    char input;
     cout << "Pasirinkite programos eigą: \n 1. Įvestis ranka. \n 2. Generuoti namų darbų ir egzamino pažymius. \n 3. Generuoti ir pažymius, ir vardus bei pavardes. \n 4. Baigti darbą."<< endl;
     cin >> input;
 
 
     while (true) {
 
-        if (input == '1'){
+        if (input == '4') {
+        exit(0);
+        } 
+
+        else if (input == '1'){
             int i = 1;
             cout << "Vardas: "<< endl;
             cin >> studentai[m].vardas; //vardas i struct
@@ -122,11 +128,9 @@ int main() {
             cout << "Sugeneruotas studentas " << studentai[m].vardas << " " << studentai[m].pavarde << endl;
 
         }
-        else if (input == '4') {
-        exit(0);
-        } 
+
         else {
-        cout << "Neteisinga įvestis."<<endl;
+        cout << "Neteisinga įvestis. Įveskite skaičių nuo 1 iki 4."<<endl;
         }
 
             m++;
@@ -179,15 +183,17 @@ int main() {
                 cout << "Neteisinga įvestis." << endl;
             }
 
-
-        
+        }
 
      for (int i = 0; i < m; ++i) {
         delete[] studentai[i].namuDarbai;
     }
+    
     delete[] studentai;
-}
+    
+    return 0;
 
+}
 
     double vidurkis (Stud& s) {
         double suma = 0;
