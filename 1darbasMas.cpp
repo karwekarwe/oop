@@ -156,8 +156,8 @@ int main() {
     }
 
     char pasirinkimas;
-
-
+        while (true) {
+            cout << endl;
             cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
             cin >> pasirinkimas;
 
@@ -167,8 +167,9 @@ int main() {
                 for (int i = 0; i < m; ++i) {
                     studentai[i].galutinis = vidurkis(studentai[i]); // galutinis i struct
                     cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
-
                 }
+                cout << "--------------------------------------------" << endl;
+                break;
             } 
             else if (pasirinkimas == 'M' || pasirinkimas == 'm') {
                 cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Med.)" << endl;
@@ -176,13 +177,15 @@ int main() {
                 for (int i = 0; i < m; ++i) {
                     studentai[i].galutinis = mediana(studentai[i]); // galutinis i struct
                     cout << setw(20) << left << studentai[i].vardas << setw(20) << left << studentai[i].pavarde << setw(10) << right << fixed << setprecision(2) << studentai[i].galutinis << endl;
-
                 }
+                cout << "--------------------------------------------" << endl;
+                break;
             } 
             else {
                 cout << "Neteisinga įvestis." << endl;
             }
-
+            cout << endl;
+        }
         }
 
      for (int i = 0; i < m; ++i) {
