@@ -1,0 +1,11 @@
+Pavardė     Vardas          ND1     ND2     ND3     ND4     ND5     Egzaminas
+Vytautas    Stankus         9       7       4       6       5       8
+Agnė        Mikalauskaitė   4       10      7       9       5       6
+Giedrius    Petrauskas      7       6       5       7       8       9
+Rasa        Kazlauskaitė    4       2       3       10      6       6
+Mantas      Navickas        7       5       1       2       9       7
+Justina     Juškaitė        4       6       5       2       8       4
+Andrius     Šimkus          1       2       4       5       6       4
+Jorė        Kulnytė         7       10      8       9       9       9
+Gediminas   Vaičiulis       6       5       7       4       5       10       
+Renata      Gudaitė         4       7       5       3       9       9
