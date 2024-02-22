@@ -20,13 +20,39 @@ struct Stud {
 
 double vidurkis(Stud&);
 double mediana(Stud&);
+void ranka(vector<Stud>& studentai);
+void isFailo(vector<Stud>& studentai);
 
 int main() {
+
+    vector<Stud> studentai;
+    char pasirinkimas;
+
+    cout << "Pasirinkite, kaip norite ivesti duomenis: \n 1. Ranka \n  2. Is failo\n";
+    cin >> pasirinkimas;
+
+    if (pasirinkimas == '1') {
+        ranka(studentai);
+    } else if (pasirinkimas == '2') {
+        isFailo(studentai);
+    } else {
+        cout << "Netinkamas pasirinkimas. Programa baigia darba.\n";
+        return 1;
+    }
+
+    return 0;
+}
+
+
+
+    void ranka(vector<Stud>& studentai) {
+
+
     int m = 0; // studentu sk
     int balas, egzBalas;
     char pabaiga;
 
-    vector<Stud> studentai;
+
     srand(time(0));
 
     while (true) {
@@ -184,9 +210,14 @@ int main() {
             }
 
             }
-    return 0;
 
 }
+
+    void nuskaitytiDuomenisIsFailo(vector<Stud>& studentai) {
+        
+    }
+
+
 
     double vidurkis (Stud& s) {
         double suma = 0;
