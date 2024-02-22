@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <string>
 #include <algorithm>
@@ -6,6 +7,7 @@
 #include <limits>
 #include <cstdlib> 
 #include <ctime>
+#include <sstream>
 
 
 using namespace std;
@@ -28,7 +30,7 @@ int main() {
     vector<Stud> studentai;
     char pasirinkimas;
 
-    cout << "Pasirinkite, kaip norite ivesti duomenis: \n 1. Ranka \n  2. Is failo\n";
+    cout << "Pasirinkite, kaip norite ivesti duomenis: \n 1. Ranka \n 2. Is failo\n";
     cin >> pasirinkimas;
 
     if (pasirinkimas == '1') {
@@ -213,10 +215,72 @@ int main() {
 
 }
 
-    void nuskaitytiDuomenisIsFailo(vector<Stud>& studentai) {
-        
+    void isFailo(vector<Stud>& studentai) {
+
+    Stud naujasS;
+
+    ifstream failas("kursiokai.txt");
+    if (!failas) {
+        cout << "Nepavyko atidaryti failo." << endl;
+        return;
     }
 
+    vector<string> buffer; // bufferis
+
+    string header;
+    getline(failas, header);
+
+    string line;
+    while (getline(failas, line)) {
+       buffer.push_back(line); // kiekvienas line i bufferi
+    }
+
+    for (const string& line : buffer) {
+        stringstream stringBuferis(line); // kiekvienai line stringstream
+
+        stringBuferis >> naujasS.vardas >> naujasS.pavarde; // vardas ir pavarde i struct
+
+        for (int i = 0; i < 5; ++i) {
+            int balas;
+            stringBuferis >> balas;
+            naujasS.namuDarbai.push_back(balas); // namu darbai u struct
+        }
+        stringBuferis >> naujasS.egzaminas; // egzaminas i struct
+
+        studentai.push_back(naujasS);
+    }
+
+    failas.close();
+
+        char pasirinkimas;
+
+    while (true) {
+        cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
+        cin >> pasirinkimas;
+
+        if (pasirinkimas == 'V' || pasirinkimas == 'v') {
+            for (auto& studentas : studentai) {
+                studentas.galutinis = vidurkis(studentas); // galutinis i struct
+            }
+            break;
+        } else if (pasirinkimas == 'M' || pasirinkimas == 'm') {
+            for (auto& studentas : studentai) {
+                studentas.galutinis = mediana(studentas); // galutinis i struct
+            }
+            break;
+        } else {
+            cout << "Neteisinga įvestis." << endl;
+        }
+    }
+
+    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis" << endl;
+    cout << "------------------------------------------------------------" << endl;
+    for (auto& studentas : studentai) {
+        cout << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
+    }
+    cout << "------------------------------------------------------------" << endl;
+
+}
 
 
     double vidurkis (Stud& s) {
