@@ -219,13 +219,14 @@ int main() {
 
     Stud naujasS;
 
-    ifstream failas("kursiokai.txt");
+    ifstream failas("studentai1000000.txt");
     if (!failas) {
         cout << "Nepavyko atidaryti failo." << endl;
         return;
     }
 
     vector<string> buffer; // bufferis
+    buffer.reserve(10);
 
     string header;
     getline(failas, header);
@@ -272,13 +273,20 @@ int main() {
             cout << "Neteisinga įvestis." << endl;
         }
     }
-
-    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis" << endl;
-    cout << "------------------------------------------------------------" << endl;
-    for (auto& studentas : studentai) {
-        cout << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
+    ofstream output("kursiokai.txt"); // Create an ofstream object to write to the file
+    if (!output) {
+        cout << "Nepavyko atidaryti rezultatų failo." << endl;
+        return;
     }
-    cout << "------------------------------------------------------------" << endl;
+
+    output << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis" << endl;
+    output << "------------------------------------------------------------" << endl;
+    for (auto& studentas : studentai) {
+        output << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
+    }
+    output << "------------------------------------------------------------" << endl;
+
+    output.close(); // Close the file stream
 
 }
 
@@ -311,4 +319,3 @@ int main() {
 
         return gal;
     }
-    
