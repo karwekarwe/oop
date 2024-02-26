@@ -16,18 +16,23 @@ struct Stud {
     int egzaminas;
     double galutinis;
 };
+void ranka(Stud* &studentai, int m, int n, int &dydis);
+void genPaz(Stud* &studentai, int m, int &dydis);
+void gen(Stud* &studentai, int m, int &dydis);
 
 double vidurkis(Stud&);
 double mediana(Stud&);
 
+
+
 int main() {
     int m = 0; // studentu sk
     int n = 0; // namu darbu sk
-    int balas, egzBalas;
+    int dydis = 2;
     char pabaiga;    
 
-    Stud *studentai = new Stud[100];
-    int *tempND = new int[100];
+    Stud *studentai = new Stud[dydis];
+    
     srand(time(0));
 
     while (true) {
@@ -39,102 +44,23 @@ int main() {
     while (true) {
 
         if (input == '4') {
-        exit(0);
+            delete[] studentai;
+            exit(0);
         } 
-
         else if (input == '1'){
-            int i = 1;
-            cout << "Vardas: "<< endl;
-            cin >> studentai[m].vardas; //vardas i struct
-            cout << "Pavarde: "<< endl;
-            cin >> studentai[m].pavarde; //pavarde i struct
-            do{
-                cout << "Namu darbu "<< i <<" balas (-1 norint baigti): "<< endl;
-                cin >> balas;
-
-                if (cin.fail() || balas == 0 || balas < -1 || balas > 10) {
-                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
-                    cin.clear(); 
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                    continue; 
-                }
-                if (balas == -1){
-                    if (n == 0) {
-                        cout << "Įveskite bent 1 pažymį: " << endl;
-                        continue; 
-                    }
-                    else {
-                        break; 
-                    }
-                }
-
-                
-                tempND[n++] = balas;
-                studentai[m].namuDarbai = tempND; //nd array i struct
-                studentai[m].ndCount = n;
-                i++;
-
-
-            } while (true);
-       
-            do {
-                cout << "Iveskite egzamino bala: ";
-                            cin >> egzBalas;
-
-                if (cin.fail() || egzBalas < 1 || egzBalas > 10) {
-                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
-                    cin.clear(); 
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                    continue; 
-                }
-                else {
-                    studentai[m].egzaminas = egzBalas; // egzaminas i struct
-                    break;
-                }      
-            } while (true); 
+            ranka(studentai, m, n, dydis);
         }
         else if (input == '2'){
-            cout << "Vardas: "<< endl;
-            cin >> studentai[m].vardas; //vardas i struct
-            cout << "Pavarde: "<< endl;
-            cin >> studentai[m].pavarde; //pavarde i struct
-
-            int numBal = rand() % 10 + 1;
-            studentai[m].ndCount = numBal;
-            studentai[m].namuDarbai = new int[numBal];
-
-            for (int i = 0; i < numBal; i++) {
-                studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
-            }
-                studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
+            genPaz(studentai, m, dydis);
         }
         else if (input == '3'){
-
-            string vardai[] = {"Jonas", "Petras", "Antanas", "Juozas", "Ona", "Marija", "Gražina", "Laima"};
-            string pavardes[] = {"Jonaitis", "Petraitis", "Antanaitis", "Juozaitis", "Onaitė", "Marijaitė", "Gražinaitė", "Laimaitė"};
-
-
-            int numBal = rand() % 10 + 1;
-            studentai[m].ndCount = numBal;
-            studentai[m].namuDarbai = new int[numBal];
-
-            for (int i = 0; i < numBal; i++) {
-                studentai[m].vardas = vardai[rand() % (sizeof(vardai) / sizeof(vardai[0]))]; // vardas i struct
-                studentai[m].pavarde = pavardes[rand() % (sizeof(pavardes) / sizeof(pavardes[0]))]; //pavarde i struct
-
-                studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
-            }
-            studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
-            cout << "Sugeneruotas studentas " << studentai[m].vardas << " " << studentai[m].pavarde << endl;
-
+            gen(studentai, m, dydis);
         }
 
         else {
         cout << "Neteisinga įvestis. Įveskite skaičių nuo 1 iki 4."<<endl;
         }
-
             m++;
-
             while (true) {
                 cout << "Ar baigete ivesti studentus? (y/n): ";
                 cin >> pabaiga;
@@ -187,16 +113,154 @@ int main() {
             cout << endl;
         }
         }
-
-     for (int i = 0; i < m; ++i) {
-        delete[] studentai[i].namuDarbai;
-    }
     
     delete[] studentai;
     
     return 0;
 
 }
+
+    void ranka ( Stud* &studentai, int m, int n, int &dydis) {
+
+            if (m >= dydis) {
+                dydis *= 2;
+                Stud *temp = new Stud[dydis];
+
+                for (int i = 0; i < m; ++i) {
+                temp[i] = studentai[i]; 
+                }
+                delete[] studentai;
+                studentai = temp;
+            } 
+
+            int balas, egzBalas;
+            int tempNDSize = 2;
+            int *tempND = new int[100];
+
+            int i = 1;
+            cout << "Vardas: "<< endl;
+            cin >> studentai[m].vardas; //vardas i struct
+            cout << "Pavarde: "<< endl;
+            cin >> studentai[m].pavarde; //pavarde i struct
+            do{
+                cout << "Namu darbu "<< i <<" balas (-1 norint baigti): "<< endl;
+                cin >> balas;
+
+                if (cin.fail() || balas == 0 || balas < -1 || balas > 10) {
+                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    continue; 
+                }
+                if (balas == -1){
+                    if (n == 0) {
+                        cout << "Įveskite bent 1 pažymį: " << endl;
+                        continue; 
+                    }
+                    else {
+                        break; 
+                    }
+                }
+
+                if (n >= tempNDSize) {
+                    int nDyd = tempNDSize * 2;
+                    int *newTempND = new int[nDyd];
+                    for (int j = 0; j < n; ++j) {
+                        newTempND[j] = tempND[j];
+                    }
+                    delete[] tempND;
+                    tempND = newTempND;
+                    tempNDSize = nDyd;
+            	}
+
+                
+                tempND[n++] = balas;
+                studentai[m].namuDarbai = tempND; //nd array i struct
+                studentai[m].ndCount = n;
+                i++;
+
+
+            } while (true);
+       
+            do {
+                cout << "Iveskite egzamino bala: ";
+                            cin >> egzBalas;
+
+                if (cin.fail() || egzBalas < 1 || egzBalas > 10) {
+                    cout << "Įvekite skaičių nuo 1 iki 10" << endl;
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    continue; 
+                }
+                else {
+                    studentai[m].egzaminas = egzBalas; // egzaminas i struct
+                    break;
+                }      
+            } while (true); 
+
+         }
+
+        void genPaz(Stud* &studentai, int m, int &dydis) {
+            
+            if (m >= dydis) {
+                dydis *= 2;
+                Stud *temp = new Stud[dydis];
+
+                for (int i = 0; i < m; ++i) {
+                    temp[i] = studentai[i]; 
+                }
+                delete[] studentai;
+                studentai = temp;
+            } 
+
+            cout << "Vardas: "<< endl;
+            cin >> studentai[m].vardas; //vardas i struct
+            cout << "Pavarde: "<< endl;
+            cin >> studentai[m].pavarde; //pavarde i struct
+
+            int numBal = rand() % 10 + 1;
+            studentai[m].ndCount = numBal;
+            studentai[m].namuDarbai = new int[numBal];
+
+            for (int i = 0; i < numBal; i++) {
+                studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
+            }
+                studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
+          
+        }
+
+        void gen( Stud* &studentai, int m, int &dydis) {
+            
+            if (m >= dydis) {
+                dydis *= 2;
+                Stud *temp = new Stud[dydis];
+
+                for (int i = 0; i < m; ++i) {
+                temp[i] = studentai[i]; 
+                }
+                delete[] studentai;
+                studentai = temp;
+            } 
+
+            string vardai[] = {"Jonas", "Petras", "Antanas", "Juozas", "Ona", "Marija", "Gražina", "Laima"};
+            string pavardes[] = {"Jonaitis", "Petraitis", "Antanaitis", "Juozaitis", "Onaitė", "Marijaitė", "Gražinaitė", "Laimaitė"};
+
+
+            int numBal = rand() % 10 + 1;
+            studentai[m].ndCount = numBal;
+            studentai[m].namuDarbai = new int[numBal];
+
+            for (int i = 0; i < numBal; i++) {
+                studentai[m].vardas = vardai[rand() % (sizeof(vardai) / sizeof(vardai[0]))]; // vardas i struct
+                studentai[m].pavarde = pavardes[rand() % (sizeof(pavardes) / sizeof(pavardes[0]))]; //pavarde i struct
+
+                studentai[m].namuDarbai[i] =  rand() % 10 + 1; // random nd i struct
+            }
+            studentai[m].egzaminas = rand() % 10 + 1; // random egzaminas i struct
+            cout << "Sugeneruotas studentas " << studentai[m].vardas << " " << studentai[m].pavarde << endl;
+        
+       
+        }
 
     double vidurkis (Stud& s) {
         double suma = 0;

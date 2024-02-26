@@ -4,6 +4,8 @@ Apie:
 
 Abi programos vykdo taspačias funkcijas, tačiau skiriasi jų duomenų saugojimo ir apdorojimo būdai.
 
+Kodas struktūrizuotas ir pakeistas dinaminės atminties tvarkymas.
+
 ## Pastabos:
 
 Programa patikrina vartotojo įvestis, kad jos būtų nurodytuose diapazonuose ir formatuose.
