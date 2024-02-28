@@ -8,6 +8,7 @@
 #include <cstdlib> 
 #include <ctime>
 #include <sstream>
+#include <chrono>
 
 
 using namespace std;
@@ -20,6 +21,7 @@ struct Stud {
     double galutinis;
 };
 
+bool rusiavimas(const Stud& a, const Stud& b, char metPas);
 double vidurkis(Stud&);
 double mediana(Stud&);
 void ranka(vector<Stud>& studentai);
@@ -216,6 +218,7 @@ int main() {
 }
 
     void isFailo(vector<Stud>& studentai) {
+    auto start = chrono::steady_clock::now();
 
     Stud naujasS;
 
@@ -225,36 +228,33 @@ int main() {
         return;
     }
 
-    vector<string> buffer; // bufferis
-    buffer.reserve(10);
-
-    string header;
-    getline(failas, header);
-
     string line;
+    getline(failas, line); 
+
     while (getline(failas, line)) {
-       buffer.push_back(line); // kiekvienas line i bufferi
-    }
+        stringstream stringBuferis(line);
 
-    for (const string& line : buffer) {
-        stringstream stringBuferis(line); // kiekvienai line stringstream
+        stringBuferis >> naujasS.vardas >> naujasS.pavarde;
 
-        stringBuferis >> naujasS.vardas >> naujasS.pavarde; // vardas ir pavarde i struct
-
+        naujasS.namuDarbai.clear();
         for (int i = 0; i < 5; ++i) {
             int balas;
             stringBuferis >> balas;
-            naujasS.namuDarbai.push_back(balas); // namu darbai u struct
+            naujasS.namuDarbai.push_back(balas);
         }
-        stringBuferis >> naujasS.egzaminas; // egzaminas i struct
+
+        stringBuferis >> naujasS.egzaminas;
 
         studentai.push_back(naujasS);
     }
 
     failas.close();
+    
+        auto end = chrono::steady_clock::now(); 
+        auto elapsed = chrono::duration_cast<chrono::seconds>(end - start);
+        cout << "uztruko: " << elapsed.count() << " sekundes" << endl;
 
-        char pasirinkimas;
-
+    char pasirinkimas;
     while (true) {
         cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
         cin >> pasirinkimas;
@@ -273,23 +273,61 @@ int main() {
             cout << "Neteisinga įvestis." << endl;
         }
     }
-    ofstream output("kursiokai.txt"); // Create an ofstream object to write to the file
+
+ 
+
+        char metPas;
+        while (true){    
+        
+            cout << "Pasirinkite rikiavimo metoda (V - vardas, P - pavarde, G - galutinis): ";
+            cin >> metPas;
+            metPas = toupper(metPas);
+
+            if (metPas != 'V' && metPas != 'P' && metPas != 'G') {
+                cout << "Neteisinga įvestis." << endl;
+            }
+            else {
+                break;
+            }
+        }
+
+   sort(studentai.begin(), studentai.end(), [&](const Stud& a, const Stud& b) {
+        return rusiavimas(a, b, metPas);
+    });
+        
+    ofstream output("kursiokai.txt"); 
     if (!output) {
         cout << "Nepavyko atidaryti rezultatų failo." << endl;
         return;
     }
 
     output << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis" << endl;
-    output << "------------------------------------------------------------" << endl;
-    for (auto& studentas : studentai) {
+    for (const auto& studentas : studentai) {
         output << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
     }
-    output << "------------------------------------------------------------" << endl;
 
-    output.close(); // Close the file stream
-
+    output.close();   
+  
 }
 
+bool rusiavimas(const Stud& a, const Stud& b, char metPas) {
+
+    metPas = toupper(metPas);
+
+    if (metPas == 'V') {
+        return a.vardas < b.vardas;
+    }
+    else if (metPas == 'P') {
+        return a.pavarde < b.pavarde;
+    }
+    else if (metPas == 'G') {
+        return a.galutinis < b.galutinis;
+    }
+    else {
+        cout << "Neteisinga įvestis." << endl;
+        return false;
+    }
+}
 
     double vidurkis (Stud& s) {
         double suma = 0;
