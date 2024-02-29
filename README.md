@@ -2,7 +2,11 @@
 
 ## Apie:
 
+# v0.3
+
 Ši C++ programa skaičiuoja studentų galutinius pažymius pagal jų namų darbų ir egzaminų rezultatus. Ji leidžia vartotojui įvesti studentų skaičių, namų darbų užduočių skaičių ir namų darbų pažymius ir pasirinkti, ar galutinis pažymys bus skaičiuojamas naudojant namų darbų vidurkį arba medianą. v0.2 pridėta galimybė pasirinkti ar duomenis vesti ranka, ar nuskaityti iš failo.
+
+Ši programos versija suskirstyta į antraštinius failus
 
 ## Funkcionalumas:
 
