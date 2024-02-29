@@ -6,8 +6,7 @@
 #include <iomanip>
 #include "student.h"
 #include "funkcijos.h"
-
-    using namespace std;
+using namespace std;
 
 
   void ranka(vector<Stud>& studentai) {
