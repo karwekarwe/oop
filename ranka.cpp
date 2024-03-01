@@ -12,7 +12,7 @@ using namespace std;
   void ranka(vector<Stud>& studentai) {
 
 
-    int m = 0; // studentu sk
+  //  int m = 0; // studentu sk
     int balas, egzBalas;
     char pabaiga;
 
