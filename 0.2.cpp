@@ -231,14 +231,35 @@ int main() {
     string line;
     getline(failas, line); 
 
+
+
+
+ int baluCount = 0;
+
+  stringstream headerS(line);
+    string headerItem;
+    int headerItemC = 0;
+    // Count the total number of items in the header line
+    while (headerS >> headerItem) {
+        headerItemC++;
+    }
+    // Subtract 3 for name, last name, and exam grade
+    baluCount = headerItemC - 3;
+
+
+
     while (getline(failas, line)) {
+
         stringstream stringBuferis(line);
 
         stringBuferis >> naujasS.vardas >> naujasS.pavarde;
 
         naujasS.namuDarbai.clear();
-        for (int i = 0; i < 5; ++i) {
-            int balas;
+       
+    
+         int balas;
+        for (int i = 0; i < baluCount; ++i) {
+           
             stringBuferis >> balas;
             naujasS.namuDarbai.push_back(balas);
         }
