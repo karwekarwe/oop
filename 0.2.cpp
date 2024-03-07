@@ -239,11 +239,10 @@ int main() {
   stringstream headerS(line);
     string headerItem;
     int headerItemC = 0;
-    // Count the total number of items in the header line
+
     while (headerS >> headerItem) {
         headerItemC++;
     }
-    // Subtract 3 for name, last name, and exam grade
     baluCount = headerItemC - 3;
 
 
