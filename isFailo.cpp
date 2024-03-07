@@ -20,7 +20,7 @@ using namespace std;
     Stud naujasS;
 
     try {
-    ifstream failas("studentai1000000.txt");
+    ifstream failas("studentai10000.txt");
     if (!failas) {
         throw runtime_error("Nepavyko atidaryti failo.");
     }
@@ -28,13 +28,25 @@ using namespace std;
     string line;
     getline(failas, line); 
 
+     int baluCount = 0;
+
+    stringstream headerS(line);
+    string headerItem;
+    int headerItemC = 0;
+
+    while (headerS >> headerItem) {
+        headerItemC++;
+    }
+    baluCount = headerItemC - 3;
+
+
     while (getline(failas, line)) {
         stringstream stringBuferis(line);
 
         stringBuferis >> naujasS.vardas >> naujasS.pavarde;
 
         naujasS.namuDarbai.clear();
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < baluCount; ++i) {
             int balas;
             stringBuferis >> balas;
             naujasS.namuDarbai.push_back(balas);
