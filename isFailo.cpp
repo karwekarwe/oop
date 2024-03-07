@@ -19,10 +19,10 @@ using namespace std;
 
     Stud naujasS;
 
+    try {
     ifstream failas("studentai1000000.txt");
     if (!failas) {
-        cout << "Nepavyko atidaryti failo." << endl;
-        return;
+        throw runtime_error("Nepavyko atidaryti failo.");
     }
 
     string line;
@@ -46,16 +46,22 @@ using namespace std;
     }
 
     failas.close();
+
+    } catch (const runtime_error& e) {
+    cout << e.what() << endl;
+}
+
     
         auto end = chrono::steady_clock::now(); 
         auto elapsed = chrono::duration_cast<chrono::seconds>(end - start);
         cout << "uztruko: " << elapsed.count() << " sekundes" << endl;
 
     char pasirinkimas;
-    while (true) {
+while (true) {
+    try {
         cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
         cin >> pasirinkimas;
-
+        
         if (pasirinkimas == 'V' || pasirinkimas == 'v') {
             for (auto& studentas : studentai) {
                 studentas.galutinis = vidurkis(studentas); // galutinis i struct
@@ -67,36 +73,43 @@ using namespace std;
             }
             break;
         } else {
-            cout << "Neteisinga įvestis." << endl;
+            throw invalid_argument("Neteisinga įvestis.");
         }
+    } catch (const invalid_argument& e) {
+        cout << e.what() << endl;
     }
+}
 
  
 
-        char metPas;
-        while (true){    
-        
+    char metPas;
+    while (true){    
+        try {
             cout << "Pasirinkite rikiavimo metoda (V - vardas, P - pavarde, G - galutinis): ";
             cin >> metPas;
             metPas = toupper(metPas);
 
             if (metPas != 'V' && metPas != 'P' && metPas != 'G') {
-                cout << "Neteisinga įvestis." << endl;
+            throw invalid_argument("Neteisinga įvestis.");
             }
             else {
                 break;
             }
+            } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            }
         }
 
-   sort(studentai.begin(), studentai.end(), [&](const Stud& a, const Stud& b) {
+    sort(studentai.begin(), studentai.end(), [&](const Stud& a, const Stud& b) {
         return rusiavimas(a, b, metPas);
     });
-        
+    
+    try {
     ofstream output("kursiokai.txt"); 
     if (!output) {
-        cout << "Nepavyko atidaryti rezultatų failo." << endl;
-        return;
+        throw runtime_error("Nepavyko atidaryti rezultatų failo.");
     }
+
 
     output << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis" << endl;
     for (const auto& studentas : studentai) {
@@ -104,7 +117,10 @@ using namespace std;
     }
 
     output.close();   
-  
+      } catch (const runtime_error& e) {
+    cout << e.what() << endl;
+    return; 
+    }
 }
 
 

@@ -143,37 +143,37 @@ using namespace std;
     
         char pasirinkimas;
 
-            while (true) {
+        while (true) {
+            try {
                 cout << endl;
                 cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): " << endl;
                 cin >> pasirinkimas;
+                pasirinkimas = toupper(pasirinkimas);
 
-                if (pasirinkimas == 'V' || pasirinkimas == 'v') {
-                    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Vid.)" << endl;
+                if (pasirinkimas != 'V' && pasirinkimas != 'M') {
+                    throw invalid_argument("Neteisinga įvestis.");
+                } else {
+                    if (pasirinkimas == 'V') {
+                        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Vid.)" << endl;
+                    } else {
+                        cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Med.)" << endl;
+                    }
                     cout << "--------------------------------------------" << endl;
                     for (auto& studentas : studentai) {
-                        studentas.galutinis = vidurkis(studentas); // galutinis i struct
+                        if (pasirinkimas == 'V') {
+                            studentas.galutinis = vidurkis(studentas); // galutinis i struct
+                        } else {
+                            studentas.galutinis = mediana(studentas); // galutinis i struct
+                        }
                         cout << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
                     }
                     cout << "--------------------------------------------" << endl;
                     break;
-                } 
-                else if (pasirinkimas == 'M' || pasirinkimas == 'm') {
-                    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis (Med.)" << endl;
-                    cout << "--------------------------------------------" << endl;
-                    for (auto& studentas : studentai) {
-                        studentas.galutinis = mediana(studentas); // galutinis i struct
-                        cout << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
-                    }
-                    cout << "--------------------------------------------" << endl;
-                    break;
-                } 
-                
-                else {
-                    cout << "Neteisinga įvestis." << endl;
                 }
-                cout << endl;
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
             }
+        }
 
             }
 

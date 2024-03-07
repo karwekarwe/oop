@@ -37,19 +37,24 @@ using namespace std;
 
     bool rusiavimas(const Stud& a, const Stud& b, char metPas) {
 
-    metPas = toupper(metPas);
+try {
+        metPas = toupper(metPas);
 
-    if (metPas == 'V') {
-        return a.vardas < b.vardas;
-    }
-    else if (metPas == 'P') {
-        return a.pavarde < b.pavarde;
-    }
-    else if (metPas == 'G') {
-        return a.galutinis < b.galutinis;
-    }
-    else {
-        cout << "Neteisinga įvestis." << endl;
+        if (metPas == 'V') {
+            return a.vardas < b.vardas;
+        }
+        else if (metPas == 'P') {
+            return a.pavarde < b.pavarde;
+        }
+        else if (metPas == 'G') {
+            return a.galutinis < b.galutinis;
+        }
+        else {
+            throw std::invalid_argument("Neteisinga įvestis.");
+        }
+    } 
+    catch (const std::invalid_argument& e) {
+        cerr << e.what() << endl;
         return false;
     }
 }
