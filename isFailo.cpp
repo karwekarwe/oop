@@ -8,8 +8,10 @@
 #include <algorithm>
 
 
+
 #include "student.h"
 #include "funkcijos.h"
+
 using namespace std;
 
     void isFailo(vector<Stud>& studentai) {
@@ -104,3 +106,5 @@ using namespace std;
     output.close();   
   
 }
+
+

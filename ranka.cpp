@@ -4,8 +4,10 @@
 #include <ctime>
 #include <limits>
 #include <iomanip>
+
 #include "student.h"
 #include "funkcijos.h"
+
 using namespace std;
 
 
@@ -176,3 +178,4 @@ using namespace std;
             }
 
 }
+
