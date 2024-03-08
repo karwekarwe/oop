@@ -8,8 +8,8 @@
 using namespace std;
 
 
-void failuGen(const string& filename, int numRecords) {
-    ofstream file(filename);
+void failuGen(const string& failPav, int numRecords) {
+    ofstream file(failPav);
     if (!file.is_open()) {
         cerr << "Failas nerastas" << endl;
         return;
@@ -41,4 +41,14 @@ void failuGen(const string& filename, int numRecords) {
      auto end = chrono::steady_clock::now(); 
         auto elapsed = chrono::duration_cast<chrono::seconds>(end - start);
         cout << "generuoti uztruko: " << elapsed.count() << " sekundes" << endl;
+}
+
+void rusiavimas(const string& failPav) {
+
+     ifstream failas(failPav);
+    if (!failas) {
+        throw runtime_error("Nepavyko atidaryti failo.");
+    }
+
+
 }
