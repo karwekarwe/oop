@@ -8,5 +8,7 @@ double vidurkis(Stud&);
 double mediana(Stud&);
 void ranka(std::vector<Stud>& studentai);
 void isFailo(std::vector<Stud>& studentai);
+void failuGen(const std::string& filename, int numRecords);
+
 
 #endif 

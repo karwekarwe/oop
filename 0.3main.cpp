@@ -8,6 +8,15 @@ using namespace std;
 
 int main() {
 
+  //  failuGen("studentai1000.txt", 1000);
+ //   failuGen("studentai10000.txt", 10000);
+ //   failuGen("studentai100000.txt", 100000);
+ //   failuGen("studentai1000000.txt", 1000000);
+    failuGen("studentai10000000.txt", 10000000);
+
+    cout << "Files generated successfully." << endl;
+    return 0;
+
     vector<Stud> studentai;
     char pasirinkimas;
 
