@@ -20,9 +20,9 @@ using namespace std;
     Stud naujasS;
 
     try {
-    ifstream failas("studentai10000.txt");
+    ifstream failas("studentai1000.txt");
     if (!failas) {
-        throw runtime_error("Nepavyko atidaryti failo.");
+        throw runtime_error("Nepavyko atidaryti failo. isF");
     }
 
     string line;
@@ -68,7 +68,7 @@ using namespace std;
         auto elapsed = chrono::duration_cast<chrono::seconds>(end - start);
         cout << "uztruko: " << elapsed.count() << " sekundes" << endl;
 
-    char pasirinkimas;
+char pasirinkimas;
 while (true) {
     try {
         cout << "Pasirinkite skaiciavimo metoda (V - vidurkis, M - mediana): ";
@@ -94,7 +94,7 @@ while (true) {
 
  
 
-    char metPas;
+ /*   char metPas;
     while (true){    
         try {
             cout << "Pasirinkite rikiavimo metoda (V - vardas, P - pavarde, G - galutinis): ";
@@ -114,7 +114,7 @@ while (true) {
 
     sort(studentai.begin(), studentai.end(), [&](const Stud& a, const Stud& b) {
         return rusiavimas(a, b, metPas);
-    });
+    });*/
     
     try {
     ofstream output("kursiokai.txt"); 

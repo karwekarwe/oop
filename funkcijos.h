@@ -9,7 +9,7 @@ double mediana(Stud&);
 void ranka(std::vector<Stud>& studentai);
 void isFailo(std::vector<Stud>& studentai);
 void failuGen(const std::string& failPav, int numRecords);
-void failuGen(const string& failPav);
+void rusiavimasGen(const std::string& failPav, std::vector<Stud>& studentai);
 
 
 #endif 

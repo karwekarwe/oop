@@ -11,7 +11,7 @@ using namespace std;
 void failuGen(const string& failPav, int numRecords) {
     ofstream file(failPav);
     if (!file.is_open()) {
-        cerr << "Failas nerastas" << endl;
+        cerr << "Nepavyko atidaryti failo gen" << endl;
         return;
     }
 
@@ -26,8 +26,7 @@ void failuGen(const string& failPav, int numRecords) {
     srand(time(NULL)); 
 
     for (int i = 1; i <= numRecords; ++i) {
-        file << "Vardas" + to_string(i) << setw(20 - to_string(i).length())
-             << "Pavarde" + to_string(i);
+        file << "Vardas" + to_string(i) << setw(20 - to_string(i).length()) << "Pavarde" + to_string(i);
 
         for (int j = 0; j < 10; ++j) {
             file << setw(8) << rand() % 10 + 1; 
@@ -43,12 +42,4 @@ void failuGen(const string& failPav, int numRecords) {
         cout << "generuoti uztruko: " << elapsed.count() << " sekundes" << endl;
 }
 
-void rusiavimas(const string& failPav) {
 
-     ifstream failas(failPav);
-    if (!failas) {
-        throw runtime_error("Nepavyko atidaryti failo.");
-    }
-
-
-}
