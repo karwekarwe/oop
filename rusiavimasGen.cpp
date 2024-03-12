@@ -25,11 +25,25 @@ Surūšiuotus studentus išveskite į du naujus failus.*/
 */
 
 
-    ofstream outputFile("rusiuoti_" + failPav);
-    if (!outputFile.is_open()) {
-        cerr << "Nepavyko sukurti naujo failo." << endl;
+    ofstream outputFileUnder("luzeriai " + failPav);
+    if (!outputFileUnder.is_open()) {
+        cerr << "Nepavyko sukurti naujo failo. outputFileUnder" << endl;
         return;
     }
+        ofstream outputFileOver("nerdai " + failPav);
+    if (!outputFileOver.is_open()) {
+        cerr << "Nepavyko sukurti naujo failo. outputFileOver" << endl;
+        return;
+    }
+
+        for (const auto& studentas : studentai) {
+        if (studentas.galutinis < 5.0) {
+            outputFileUnder<< studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+        } else {
+            outputFileOver << studentas.vardas << " " << studentas.pavarde << " " << studentas.galutinis << endl;
+        }
+    }
+
 
 
 }
