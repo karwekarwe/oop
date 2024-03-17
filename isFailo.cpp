@@ -14,13 +14,13 @@
 
 using namespace std;
 
-    void isFailo(vector<Stud>& studentai) {
+    void isFailo(const string& failPav, vector<Stud>& studentai) {
     auto start = chrono::steady_clock::now();
 
     Stud naujasS;
 
     try {
-    ifstream failas("studentai1000.txt");
+    ifstream failas(failPav);
     if (!failas) {
         throw runtime_error("Nepavyko atidaryti failo. isF");
     }
@@ -91,30 +91,6 @@ while (true) {
         cout << e.what() << endl;
     }
 }
-
- 
-
- /*   char metPas;
-    while (true){    
-        try {
-            cout << "Pasirinkite rikiavimo metoda (V - vardas, P - pavarde, G - galutinis): ";
-            cin >> metPas;
-            metPas = toupper(metPas);
-
-            if (metPas != 'V' && metPas != 'P' && metPas != 'G') {
-            throw invalid_argument("Neteisinga įvestis.");
-            }
-            else {
-                break;
-            }
-            } catch (const invalid_argument& e) {
-            cout << e.what() << endl;
-            }
-        }
-
-    sort(studentai.begin(), studentai.end(), [&](const Stud& a, const Stud& b) {
-        return rusiavimas(a, b, metPas);
-    });*/
     
     try {
     ofstream output("kursiokai.txt"); 
