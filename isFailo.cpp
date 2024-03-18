@@ -15,15 +15,18 @@
 using namespace std;
 
     void isFailo(const string& failPav, vector<Stud>& studentai) {
-    auto start = chrono::steady_clock::now();
+        
 
     Stud naujasS;
+    auto start = chrono::steady_clock::now();
 
     try {
     ifstream failas(failPav);
     if (!failas) {
         throw runtime_error("Nepavyko atidaryti failo. isF");
     }
+
+    
 
     string line;
     getline(failas, line); 
@@ -58,15 +61,17 @@ using namespace std;
     }
 
     failas.close();
+   
 
     } catch (const runtime_error& e) {
     cout << e.what() << endl;
 }
 
+     auto end = chrono::steady_clock::now(); 
+        auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
+        cout << "Skaitymas uztruko: " << elapsed.count() << " milisekundes" << endl;
     
-        auto end = chrono::steady_clock::now(); 
-        auto elapsed = chrono::duration_cast<chrono::seconds>(end - start);
-        cout << "uztruko: " << elapsed.count() << " sekundes" << endl;
+ 
 
 char pasirinkimas;
 while (true) {
