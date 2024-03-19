@@ -1,12 +1,17 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
+
 
 #include "student.h"
 #include "funkcijos.h"
 
 using namespace std;
 
+chrono::milliseconds totalTime(0); 
+
 int main() {
+
 
     vector<Stud> studentai;
     string failPav;
@@ -15,7 +20,7 @@ int main() {
         try {
                
                 char pasDyd;
-                cout << "Pasirinkite, kokio dydžio failą norite generuoti: 1. 1000 2. 10000 3. 10000 4. 1000000 5. 10000000"<< endl;
+                cout << "Pasirinkite, kokio dydzio faila norite generuoti: 1. 1000 2. 10000 3. 100000 4. 1000000 5. 10000000"<< endl;
                 cin >> pasDyd;
 
                 switch (pasDyd) {
@@ -44,7 +49,8 @@ int main() {
 
                 }
                 cout << "Failas sugeneruotas." << endl;
-                isFailo(failPav, studentai);          
+                isFailo(failPav, studentai); 
+                        
 
                 rusiavimasGen(failPav, studentai); 
             
@@ -56,7 +62,9 @@ int main() {
             cout << "Neatpažinta klaida: " << e.what() << " Programa baigia darba.\n";
             return 1;
         }
-    
+
+    cout << "Visos programos veikimo laikas: " << totalTime.count() << " milisekundes" << endl;
+
     return 0;
 }
 

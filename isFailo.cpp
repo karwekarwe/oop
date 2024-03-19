@@ -12,13 +12,15 @@
 #include "student.h"
 #include "funkcijos.h"
 
+
 using namespace std;
+extern chrono::milliseconds totalTime;
 
     void isFailo(const string& failPav, vector<Stud>& studentai) {
         
 
     Stud naujasS;
-    auto start = chrono::steady_clock::now();
+   auto startSkaitymas = chrono::steady_clock::now();
 
     try {
     ifstream failas(failPav);
@@ -67,10 +69,10 @@ using namespace std;
     cout << e.what() << endl;
 }
 
-     auto end = chrono::steady_clock::now(); 
-        auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
-        cout << "Skaitymas uztruko: " << elapsed.count() << " milisekundes" << endl;
-    
+     auto endSkaitymas  = chrono::steady_clock::now(); 
+        auto elapsedSkaitymas  = chrono::duration_cast<chrono::milliseconds>(endSkaitymas  - startSkaitymas );
+        cout << failPav << "  Skaitymas uztruko: " << elapsedSkaitymas .count() << " milisekundes" << endl;
+totalTime += elapsedSkaitymas;
  
 
 char pasirinkimas;
@@ -97,7 +99,7 @@ while (true) {
     }
 }
     
-    try {
+ /*   try {
     ofstream output("kursiokai.txt"); 
     if (!output) {
         throw runtime_error("Nepavyko atidaryti rezultatų failo.");
@@ -114,6 +116,8 @@ while (true) {
     cout << e.what() << endl;
     return; 
     }
+*/
+   
 }
 
 

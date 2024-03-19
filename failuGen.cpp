@@ -6,6 +6,8 @@
 
 
 using namespace std;
+extern chrono::milliseconds totalTime;
+
 
 
 void failuGen(const string& failPav, int numRecords) {
@@ -23,7 +25,7 @@ void failuGen(const string& failPav, int numRecords) {
     cout << "kiek namu darbu pazymiu?"<<endl;
     cin >> ndSk;
 
-    auto start = chrono::steady_clock::now();
+    auto startGen = chrono::steady_clock::now();
 
     file << "Vardas" << setw(20) << "Pavarde";
     for (int i = 1; i <= ndSk; ++i) {
@@ -45,9 +47,10 @@ void failuGen(const string& failPav, int numRecords) {
 
     file.close();
 
-     auto end = chrono::steady_clock::now(); 
-        auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
-        cout << "generuoti uztruko: " << failPav << elapsed.count() << " milisekundes" << endl;
+     auto endGen = chrono::steady_clock::now(); 
+        auto elapsedGen = chrono::duration_cast<chrono::milliseconds>(endGen - startGen);
+        cout << failPav << " generuoti uztruko: " << elapsedGen.count() << " milisekundes" << endl;
+        totalTime += elapsedGen;
 }
 
 
