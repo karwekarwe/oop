@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <list>
 #include <chrono>
 
 
@@ -13,7 +13,7 @@ chrono::milliseconds totalTime(0);
 int main() {
 
 
-    vector<Stud> studentai;
+    list<Stud> studentai;
     string failPav;
 
 
@@ -26,7 +26,7 @@ int main() {
                 cout << "Pasirinkite, su kokio dydzio failu norite dirbti: 1. 1000 2. 10000 3. 100000 4. 1000000 5. 10000000"<< endl;
                 cin >> pasDyd;
 
-                    
+
                 if (ne == 'N' || ne == 'n') {
 
 
@@ -61,7 +61,7 @@ int main() {
   
 
                 }
-                else {
+                else if (ne == 'E' || ne == 'e') {
 
                     switch (pasDyd) {
                         case '1':
@@ -86,6 +86,7 @@ int main() {
                     isFailo(failPav, studentai); 
                     rusiavimasGen(failPav, studentai); 
                 }
+
             
 
 
