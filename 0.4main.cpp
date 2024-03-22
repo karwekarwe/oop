@@ -56,6 +56,8 @@ int main() {
 
                     }
                     cout << "Failas sugeneruotas." << endl;
+                    isFailo(failPav, studentai); 
+                    rusiavimasGen(failPav, studentai); 
   
 
                 }

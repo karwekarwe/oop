@@ -3,6 +3,7 @@
 #include <random>
 #include <iomanip>
 #include <chrono>
+#include <sstream>
 
 
 using namespace std;
@@ -27,24 +28,28 @@ void failuGen(const string& failPav, int numRecords) {
 
     auto startGen = chrono::steady_clock::now();
 
-    file << "Vardas" << setw(20) << "Pavarde";
+    stringstream ss;
+
+    ss << "Vardas" << setw(20) << "Pavarde";
     for (int i = 1; i <= ndSk; ++i) {
-        file << setw(8) << "ND" + to_string(i);
+        ss << setw(8) << "ND" + to_string(i);
     }
-    file << setw(8) << "Egz." << endl;
+    ss << setw(8) << "Egz." << endl;
 
     srand(time(NULL)); 
 
     for (int i = 1; i <= numRecords; ++i) {
-        file << "Vardas" + to_string(i) << setw(20 - to_string(i).length()) << "Pavarde" + to_string(i);
+        ss << "Vardas" + to_string(i) << setw(20 - to_string(i).length()) << "Pavarde" + to_string(i);
 
         for (int j = 0; j < ndSk; ++j) {
-            file << setw(8) << rand() % 10 + 1; 
+            ss << setw(8) << rand() % 10 + 1; 
         }
 
-        file << setw(8) << rand() % 10 + 1 << endl; 
+        ss << setw(8) << rand() % 10 + 1 << endl; 
     }
 
+    file << ss.str();
+    
     file.close();
 
      auto endGen = chrono::steady_clock::now(); 
