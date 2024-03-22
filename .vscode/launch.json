@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Git/OOP/deque",
-      "program": "c:/Git/OOP/deque/build/Debug/outDebug",
+      "cwd": "c:/Git/OOP/list",
+      "program": "c:/Git/OOP/list/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

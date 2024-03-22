@@ -50,7 +50,7 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
             cout  << failPav << "Studentu skirstymo  i dvi grupes uztruko: " << elapsedRus.count() << " milisekundes" << endl;
     totalTime += elapsedRus;
 
-        auto startIsved = chrono::steady_clock::now();   
+        
 
 
         char rusPas;
@@ -69,6 +69,8 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
 
         }   
 
+auto startIsved = chrono::steady_clock::now(); 
+  
          switch (rusPas) {
         case 'V':
             sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
@@ -99,6 +101,8 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
             cout << failPav << "Studentu rūšiavimas didėjimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
     
+               totalTime += elapsedIsved;
+
 
         for (const auto& studentas : luzeriukai){
             outputFileUnder<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
@@ -107,8 +111,6 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
             outputFileOver<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }        
 
-
-               totalTime += elapsedIsved;
 
 
 }

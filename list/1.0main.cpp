@@ -12,7 +12,7 @@ chrono::milliseconds totalTime(0);
 
 int main() {
 
-
+    cout << "LIST" << endl;
     list<Stud> studentai;
     string failPav;
 
