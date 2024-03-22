@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <vector>
+#include <deque>
 #include <chrono>
 #include <algorithm>
 
@@ -12,13 +12,13 @@ using namespace std;
 extern chrono::milliseconds totalTime;
 
 
-void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
+void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
 
     auto startRus = chrono::steady_clock::now();
     
 
-    vector<Stud> luzeriukai;
-    vector<Stud> intelektualai;
+    deque<Stud> luzeriukai;
+    deque<Stud> intelektualai;
 
      ifstream failas(failPav);
     if (!failas) {
@@ -47,7 +47,7 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
 
             auto endRus = chrono::steady_clock::now(); 
             auto elapsedRus = chrono::duration_cast<chrono::milliseconds>(endRus - startRus);
-            cout  << failPav << "  rusiavimas uztruko: " << elapsedRus.count() << " milisekundes" << endl;
+            cout  << failPav << "Studentu skirstymo  i dvi grupes uztruko: " << elapsedRus.count() << " milisekundes" << endl;
     totalTime += elapsedRus;
 
         auto startIsved = chrono::steady_clock::now();   
@@ -95,7 +95,11 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
             });
             break;
     }
-
+            auto endIsved = chrono::steady_clock::now(); 
+            auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
+            cout << failPav << "Studentu rūšiavimas didėjimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
+    
+               totalTime += elapsedIsved;
 
         for (const auto& studentas : luzeriukai){
             outputFileUnder<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
@@ -104,11 +108,7 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
             outputFileOver<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }        
 
-            auto endIsved = chrono::steady_clock::now(); 
-            auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
-            cout << failPav << "  surusiuotu isvedimas i du failus uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
-    
-               totalTime += elapsedIsved;
+        
 
 
 }

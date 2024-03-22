@@ -99,25 +99,7 @@ while (true) {
     }
 }
     
- /*   try {
-    ofstream output("kursiokai.txt"); 
-    if (!output) {
-        throw runtime_error("Nepavyko atidaryti rezultatų failo.");
-    }
 
-
-    output << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(10) << right << "Galutinis" << endl;
-    for (const auto& studentas : studentai) {
-        output << setw(20) << left << studentas.vardas << setw(20) << left << studentas.pavarde << setw(10) << right << fixed << setprecision(2) << studentas.galutinis << endl;
-    }
-
-    output.close();   
-      } catch (const runtime_error& e) {
-    cout << e.what() << endl;
-    return; 
-    }
-*/
-   
 }
 
 

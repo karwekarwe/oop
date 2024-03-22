@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <deque>
 #include <chrono>
 
 
@@ -13,7 +13,7 @@ chrono::milliseconds totalTime(0);
 int main() {
 
 
-    vector<Stud> studentai;
+    deque<Stud> studentai;
     string failPav;
 
 

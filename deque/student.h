@@ -2,12 +2,12 @@
 #define STUDENT_H
 
 #include <string>
-#include <vector>
+#include <deque>
 
 struct Stud {
     std::string vardas;
     std::string pavarde;
-    std::vector<int> namuDarbai;
+    std::deque<int> namuDarbai;
     int egzaminas;
     double galutinis;
 };
