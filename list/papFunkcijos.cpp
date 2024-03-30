@@ -20,33 +20,19 @@ using namespace std;
         return gal;
     }
 
-        double mediana (Stud& s) {
+    double mediana (Stud& s) {
         double med = 0;
         double gal;
 
-        list<int>::iterator it;
+         s.namuDarbai.sort();
+         auto mid = std::next(s.namuDarbai.begin(), s.namuDarbai.size() / 2);
 
-        sort(s.namuDarbai.begin(), s.namuDarbai.end());
-
-
-
-
-
-        if (s.namuDarbai.size() % 2 == 0) {
-            it = s.namuDarbai.begin(); 
-            advance(it, s.namuDarbai.size() / 2 - 1);
-            med = (*it + *(++it)) / 2.0; 
-        
-        }
-        else {
-            it = s.namuDarbai.begin(); 
-            advance(it, s.namuDarbai.size() / 2);
-            med = *it;
-        }
-
-
-
-        gal = med*0.4 + s.egzaminas*0.6;
+         if (s.namuDarbai.size() % 2 == 0) {
+            auto prevMid = std::prev(mid);
+            gal = (*mid + *prevMid) / 2.0;
+          } else {
+            gal = *mid;
+          }
 
         return gal;
     }

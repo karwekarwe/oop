@@ -51,9 +51,9 @@ void rusiavimasGen(const string& failPav, list<Stud>& studentai) {
     totalTime += elapsedRus;
 
           
-        char rusPas = 'G';
+        char rusPas;
 
-   /*     while (true) {
+        while (true) {
             cout << "Pasirinkite rikiavimo metoda (V - vardas, P - pavarde, G - galutinis): ";
             cin >> rusPas;
             rusPas = toupper(rusPas);
@@ -65,35 +65,13 @@ void rusiavimasGen(const string& failPav, list<Stud>& studentai) {
                 break;
             }
 
-        } */ auto startIsved = chrono::steady_clock::now();
+        }  auto startIsved = chrono::steady_clock::now();
         
           
-         switch (rusPas) {
-        case 'V':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.vardas < b.vardas;
+              studentai.sort([&rusPas](const Stud& a, const Stud& b) {
+            return rusiavimas(a, b, rusPas);
             });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.vardas < b.vardas;
-            });
-            break;
-        case 'P':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.pavarde < b.pavarde;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.pavarde < b.pavarde;
-            });
-            break;
-        case 'G':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.galutinis < b.galutinis;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.galutinis < b.galutinis;
-            });
-            break;
-    }
+
 
             auto endIsved = chrono::steady_clock::now(); 
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
