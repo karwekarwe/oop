@@ -4,6 +4,8 @@
 #include <vector>
 #include <chrono>
 #include <algorithm>
+#include <iterator>
+
 
 #include "student.h"
 #include "funkcijos.h"
@@ -18,31 +20,30 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
     
 
     vector<Stud> luzeriukai;
-    vector<Stud> intelektualai;
 
-     ifstream failas(failPav);
-    if (!failas) {
-        throw runtime_error("Nepavyko atidaryti failo rusiavimas.");
-    }
+
 
     ofstream outputFileUnder("luzeriukai " + failPav);
     if (!outputFileUnder.is_open()) {
         cerr << "Nepavyko sukurti naujo failo. outputFileUnder" << endl;
         return;
     }
-        ofstream outputFileOver("intelektualai " + failPav);
+    ofstream outputFileOver("intelektualai " + failPav);
     if (!outputFileOver.is_open()) {
         cerr << "Nepavyko sukurti naujo failo. outputFileOver" << endl;
         return;
     }
 
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis < 5.0) {
-                luzeriukai.push_back(studentas);
+   for ( auto it = studentai.begin(); it != studentai.end();) {
+            if (it->galutinis < 5.0) {
+                luzeriukai.push_back(*it);
+                it = studentai.erase(it);         
             } else {
-                intelektualai.push_back(studentas);
+                it++;
             }
         }
+
+
 
 
             auto endRus = chrono::steady_clock::now(); 
@@ -70,36 +71,14 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
         }   
 
 auto startIsved = chrono::steady_clock::now(); 
+
+    sort(studentai.begin(), studentai.end(), [&rusPas](const Stud& a, const Stud& b) {
+    return rusiavimas(a, b, rusPas);
+  });
   
-         switch (rusPas) {
-        case 'V':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.vardas < b.vardas;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.vardas < b.vardas;
-            });
-            break;
-        case 'P':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.pavarde < b.pavarde;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.pavarde < b.pavarde;
-            });
-            break;
-        case 'G':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.galutinis < b.galutinis;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.galutinis < b.galutinis;
-            });
-            break;
-    }
             auto endIsved = chrono::steady_clock::now(); 
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
-            cout << failPav << "Studentu rūšiavimas didėjimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
+            cout << failPav << "Studentu rusiavimas didejimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
     
                totalTime += elapsedIsved;
 
@@ -107,7 +86,7 @@ auto startIsved = chrono::steady_clock::now();
         for (const auto& studentas : luzeriukai){
             outputFileUnder<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }
-        for (const auto& studentas : intelektualai){
+        for (const auto& studentas : studentai){
             outputFileOver<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }        
 

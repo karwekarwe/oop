@@ -18,7 +18,6 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
     
 
     deque<Stud> luzeriukai;
-    deque<Stud> intelektualai;
 
      ifstream failas(failPav);
     if (!failas) {
@@ -36,13 +35,17 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
         return;
     }
 
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis < 5.0) {
-                luzeriukai.push_back(studentas);
+
+   for ( auto it = studentai.begin(); it != studentai.end();) {
+            if (it->galutinis < 5.0) {
+                luzeriukai.push_back(*it);
+                it = studentai.erase(it);         
             } else {
-                intelektualai.push_back(studentas);
+                it++;
             }
         }
+
+
 
 
             auto endRus = chrono::steady_clock::now(); 
@@ -66,35 +69,14 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
                 break;
             }
 
-        }   auto startIsved = chrono::steady_clock::now();   
+        }  
+        
+         auto startIsved = chrono::steady_clock::now();   
 
 
-         switch (rusPas) {
-        case 'V':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.vardas < b.vardas;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.vardas < b.vardas;
-            });
-            break;
-        case 'P':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.pavarde < b.pavarde;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.pavarde < b.pavarde;
-            });
-            break;
-        case 'G':
-            sort(luzeriukai.begin(), luzeriukai.end(), [](const Stud& a, const Stud& b) {
-                return a.galutinis < b.galutinis;
-            });
-            sort(intelektualai.begin(), intelektualai.end(), [](const Stud& a, const Stud& b) {
-                return a.galutinis < b.galutinis;
-            });
-            break;
-    }
+    sort(studentai.begin(), studentai.end(), [&rusPas](const Stud& a, const Stud& b) {
+    return rusiavimas(a, b, rusPas);
+});
             auto endIsved = chrono::steady_clock::now(); 
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
             cout << failPav << "  Studentu rusiavimas didejimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
@@ -104,7 +86,7 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
         for (const auto& studentas : luzeriukai){
             outputFileUnder<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }
-        for (const auto& studentas : intelektualai){
+        for (const auto& studentas : studentai){
             outputFileOver<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }        
 

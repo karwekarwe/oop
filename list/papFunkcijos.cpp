@@ -25,10 +25,10 @@ using namespace std;
         double gal;
 
          s.namuDarbai.sort();
-         auto mid = std::next(s.namuDarbai.begin(), s.namuDarbai.size() / 2);
+         auto mid = next(s.namuDarbai.begin(), s.namuDarbai.size() / 2);
 
          if (s.namuDarbai.size() % 2 == 0) {
-            auto prevMid = std::prev(mid);
+            auto prevMid = prev(mid);
             gal = (*mid + *prevMid) / 2.0;
           } else {
             gal = *mid;

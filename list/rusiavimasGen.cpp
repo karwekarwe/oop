@@ -18,7 +18,6 @@ void rusiavimasGen(const string& failPav, list<Stud>& studentai) {
     
 
     list<Stud> luzeriukai;
-    list<Stud> intelektualai;
 
      ifstream failas(failPav);
     if (!failas) {
@@ -36,13 +35,16 @@ void rusiavimasGen(const string& failPav, list<Stud>& studentai) {
         return;
     }
 
-        for (const auto& studentas : studentai) {
-            if (studentas.galutinis < 5.0) {
-                luzeriukai.push_back(studentas);
+        for ( auto it = studentai.begin(); it != studentai.end();) {
+            if (it->galutinis < 5.0) {
+                luzeriukai.push_back(*it);
+                it = studentai.erase(it);         
             } else {
-                intelektualai.push_back(studentas);
+                it++;
             }
         }
+
+        
 
 
             auto endRus = chrono::steady_clock::now(); 
@@ -68,21 +70,21 @@ void rusiavimasGen(const string& failPav, list<Stud>& studentai) {
         }  auto startIsved = chrono::steady_clock::now();
         
           
-              studentai.sort([&rusPas](const Stud& a, const Stud& b) {
+            studentai.sort([&rusPas](const Stud& a, const Stud& b) {
             return rusiavimas(a, b, rusPas);
             });
 
 
             auto endIsved = chrono::steady_clock::now(); 
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
-            cout << failPav << "Studentu rūšiavimas didėjimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
+            cout << failPav << "Studentu rusiavimas didejimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
              totalTime += elapsedIsved;
 
 
         for (const auto& studentas : luzeriukai){
             outputFileUnder<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }
-        for (const auto& studentas : intelektualai){
+        for (const auto& studentas : studentai){
             outputFileOver<< studentas.vardas << setw(20) << studentas.pavarde << setw(20) << studentas.galutinis << endl;
         }        
 
