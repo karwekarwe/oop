@@ -35,16 +35,10 @@ void rusiavimasGen(const string& failPav, list<Stud>& studentai) {
         return;
     }
 
-        for ( auto it = studentai.begin(); it != studentai.end();) {
-            if (it->galutinis < 5.0) {
-                luzeriukai.push_back(*it);
-                it = studentai.erase(it);         
-            } else {
-                it++;
-            }
-        }
+    copy_if(studentai.begin(), studentai.end(), back_inserter(luzeriukai), [](const Stud& student){return student.galutinis < 5.0; });
+    studentai.erase(remove_if(studentai.begin(), studentai.end(), [](const Stud& student) {return student.galutinis < 5.0; }), studentai.end());
 
-        
+
 
 
             auto endRus = chrono::steady_clock::now(); 
