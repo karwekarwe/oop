@@ -21,6 +21,8 @@ Testavimo rezultatai(milisekundemis):
 
 # 1 Strategija:
 
+![image](https://github.com/karwekarwe/OOP/assets/82239041/4b1c463e-751e-4772-8338-c1c258675183)
+
 vector:
 
 1000	2
@@ -59,6 +61,9 @@ deque:
 
 # 2 Strategija:
 
+![image](https://github.com/karwekarwe/OOP/assets/82239041/f6c31245-f649-4921-9b1b-b5b2b1cb66cb)
+
+Su vector ir deque - labai lėtas studentų rūšiavimas į luzeriukus ir jų trynimas...
 vector:
 
 1000	40
@@ -97,6 +102,10 @@ deque:
 
 # 3 Strategija:
 
+3 strategijoje buvo panaudoti std::copy ir std::remove_if na6umo paspartinimui:
+
+![image](https://github.com/karwekarwe/OOP/assets/82239041/1acd4de6-0494-4b91-ab91-ad517dbd789e)
+
 vector:
 
 1000	2
@@ -108,5 +117,7 @@ vector:
 1000000	3390
 
 10000000 32992
+
+![image](https://github.com/karwekarwe/OOP/assets/82239041/18ea3071-1f43-4f83-a289-932781ebb2b6)
 
 
