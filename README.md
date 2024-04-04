@@ -109,4 +109,6 @@ vector:
 
 10000000 32992
 
+![image](https://github.com/karwekarwe/OOP/assets/82239041/18ea3071-1f43-4f83-a289-932781ebb2b6)
+
 
