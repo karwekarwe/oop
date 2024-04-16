@@ -19,86 +19,19 @@ SSD
 
 Testavimo rezultatai(milisekundemis): 
 
+![image](https://github.com/karwekarwe/OOP/assets/82239041/86b0c35c-62d6-4faa-860e-c82ca3f6632c)
+
 # 1 Strategija:
 
 ![image](https://github.com/karwekarwe/OOP/assets/82239041/4b1c463e-751e-4772-8338-c1c258675183)
 
-vector:
 
-1000	2
-
-10000	33
-
-100000	369
-
-1000000	3931
-
-10000000 45221
-
-list:
-
-1000 5
-
-10000 88
-
-100000 648
-
-1000000 6742
-
-10000000 115039
-
-deque:
-
-1000 4
-
-10000 56
-
-100000 700
-
-1000000 7689
-
-10000000 145497
 
 # 2 Strategija:
 
 ![image](https://github.com/karwekarwe/OOP/assets/82239041/f6c31245-f649-4921-9b1b-b5b2b1cb66cb)
 
-Su vector ir deque - labai lėtas studentų rūšiavimas į luzeriukus ir jų trynimas...
-vector:
 
-1000	40
-
-10000	1561
-
-100000	150541
-
-1000000	per ilgai
-
-10000000 per ilgai
-
-list:
-
-1000 5
-
-10000 68
-
-100000 561
-
-1000000 5705
-
-10000000 86483
-
-deque:
-
-1000 47
-
-10000 1030
-
-100000 116056
-
-1000000 per ilgai
-
-10000000 per ilgai
 
 # 3 Strategija:
 
@@ -106,18 +39,19 @@ deque:
 
 ![image](https://github.com/karwekarwe/OOP/assets/82239041/1acd4de6-0494-4b91-ab91-ad517dbd789e)
 
-vector:
+Kaip matome iš lentelės, visose trijose strategijose efektyviausia naudodi std::vector.
 
-1000	2
+1 Strategija užtruko ilgiausiai su visais variantais (vector, list, deque), nes naudoti du naujus vektorius elementų padalijimui yra neefektyvu. 
 
-10000	30
+2 ir 3 strategijų laikai apylygiai, std::vector programos variantas veikia daug greičiau palyginus su std::list ir std::deque.
 
-100000	328
+## Paleisties proceso instrukcija
 
-1000000	3390
-
-10000000 32992
-
-![image](https://github.com/karwekarwe/OOP/assets/82239041/18ea3071-1f43-4f83-a289-932781ebb2b6)
-
-
+1. Visų pirma, iš https://github.com/karwekarwe/OOP reikia klonuoti repozitoriją savo darbo aplinkoje naudojant 'git clone'.
+2. Atsidarius naują terminalą, nueikite į klonuotos repozitorijos aplnką.
+3. Kompiliuokite programą naudojant "Makefile" failą, kuris jau bus klonuotoje repozitorijose - terminale įrašykite "make".
+4. Pasirinkite su kokia programos versija norite dirbti. Norint naudoti std::vector versiją, terminale rašykite "./v". std::list - "./l". std::deque - "./d".
+5. Terminale jūsų bus paklausta, ar norite dirbti su anksčiau sugeneruotais failais, ar generuoti naują failą. "Generuoti nauja ar naudoti esama? (Nauja - N. Esama - E)". Norint generuoti naują failą, spauskite "N". Norint naudoti esamą failą - spauskite "E".
+6. Tada pasirinkite, su kokio dydžio failu norite dirbiti įvedant atitinkamą skaičiu (1-5): 1. 1000 2. 10000 3. 100000 4. 1000000 5. 10000000.
+7. Jei pasirinksite generuoti naują failą, papildomai turėstie įvesti namų darbų pažymių skaičių.
+8. Tada įveskite galutinio balo skaičiavimo metodą, rikiavimo metodą.
