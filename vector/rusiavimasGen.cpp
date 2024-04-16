@@ -34,9 +34,17 @@ void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
         return;
     }
 
-    copy_if(studentai.begin(), studentai.end(), back_inserter(luzeriukai), [](const Stud& student){return student.galutinis < 5.0; });
-    studentai.erase(remove_if(studentai.begin(), studentai.end(), [](const Stud& student) {return student.galutinis < 5.0; }), studentai.end());
+int index = 0; 
 
+for (int i = 0; i < studentai.size(); ++i) {
+    if (studentai[i].galutinis < 5.0) {
+        luzeriukai.push_back(std::move(studentai[i])); // maziau uz 5 i luzeriukus
+    } else {
+        studentai[index++] = std::move(studentai[i]); // daugiau uz 5 i studentu pradzia
+    }
+}
+
+studentai.resize(index); 
 
 
             auto endRus = chrono::steady_clock::now(); 
@@ -68,6 +76,9 @@ auto startIsved = chrono::steady_clock::now();
     sort(studentai.begin(), studentai.end(), [&rusPas](const Stud& a, const Stud& b) {
     return rusiavimas(a, b, rusPas);
   });
+      sort(luzeriukai.begin(), luzeriukai.end(), [&rusPas](const Stud& a, const Stud& b) {
+    return rusiavimas(a, b, rusPas);
+  });
   
             auto endIsved = chrono::steady_clock::now(); 
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
@@ -86,4 +97,3 @@ auto startIsved = chrono::steady_clock::now();
 
 
 }
-

@@ -36,9 +36,17 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
     }
 
 
+int index = 0; 
 
-    copy_if(studentai.begin(), studentai.end(), back_inserter(luzeriukai), [](const Stud& student){return student.galutinis < 5.0; });
-    studentai.erase(remove_if(studentai.begin(), studentai.end(), [](const Stud& student) {return student.galutinis < 5.0; }), studentai.end());
+for (int i = 0; i < studentai.size(); ++i) {
+    if (studentai[i].galutinis < 5.0) {
+        luzeriukai.push_back(std::move(studentai[i])); // maziau uz 5 i luzeriukus
+    } else {
+        studentai[index++] = std::move(studentai[i]); // daugiau uz 5 i studentu pradzia
+    }
+}
+studentai.resize(index); 
+
 
 
 
@@ -71,6 +79,10 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
     sort(studentai.begin(), studentai.end(), [&rusPas](const Stud& a, const Stud& b) {
     return rusiavimas(a, b, rusPas);
 });
+      sort(luzeriukai.begin(), luzeriukai.end(), [&rusPas](const Stud& a, const Stud& b) {
+    return rusiavimas(a, b, rusPas);
+  });
+  
             auto endIsved = chrono::steady_clock::now(); 
             auto elapsedIsved = chrono::duration_cast<chrono::milliseconds>(endIsved - startIsved);
             cout << failPav << "  Studentu rusiavimas didejimo tvarka konteineryje (funkcija sort) uztruko: " << elapsedIsved.count() << "  milisekundes" << endl;
@@ -88,4 +100,3 @@ void rusiavimasGen(const string& failPav, deque<Stud>& studentai) {
 
 
 }
-
