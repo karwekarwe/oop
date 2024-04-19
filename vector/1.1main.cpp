@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 #include <chrono>
 
 
@@ -10,10 +10,10 @@ using namespace std;
 
 chrono::milliseconds totalTime(0); 
 
-int main() {
+int main() {/*
 
-    cout << "LIST" << endl;
-    list<Stud> studentai;
+
+    vector<Stud> studentai;
     string failPav;
 
 
@@ -26,7 +26,7 @@ int main() {
                 cout << "Pasirinkite, su kokio dydzio failu norite dirbti: 1. 1000 2. 10000 3. 100000 4. 1000000 5. 10000000"<< endl;
                 cin >> pasDyd;
 
-
+     
                 if (ne == 'N' || ne == 'n') {
 
 
@@ -101,6 +101,6 @@ int main() {
 
     cout << "Visos programos veikimo laikas: " << totalTime.count() << " milisekundes" << endl;
 
-    return 0;
+    return 0;*/
 }
 

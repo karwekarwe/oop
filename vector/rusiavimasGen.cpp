@@ -14,7 +14,7 @@ using namespace std;
 extern chrono::milliseconds totalTime;
 
 
-void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {
+void rusiavimasGen(const string& failPav, vector<Stud>& studentai) {/*
 
     auto startRus = chrono::steady_clock::now();
     
@@ -95,5 +95,5 @@ auto startIsved = chrono::steady_clock::now();
         }        
 
 
-
+*/
 }

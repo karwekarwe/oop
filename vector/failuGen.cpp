@@ -11,7 +11,7 @@ extern chrono::milliseconds totalTime;
 
 
 
-void failuGen(const string& failPav, int numRecords) {
+void failuGen(const string& failPav, int numRecords) {/*
 
 
 
@@ -55,7 +55,7 @@ void failuGen(const string& failPav, int numRecords) {
      auto endGen = chrono::steady_clock::now(); 
         auto elapsedGen = chrono::duration_cast<chrono::milliseconds>(endGen - startGen);
         cout << failPav << " generuoti uztruko: " << elapsedGen.count() << " milisekundes" << endl;
-        totalTime += elapsedGen;
+        totalTime += elapsedGen;*/
 }
 
 

@@ -16,7 +16,7 @@
 using namespace std;
 extern chrono::milliseconds totalTime;
 
-    void isFailo(const string& failPav, vector<Stud>& studentai) {
+    void isFailo(const string& failPav, vector<Stud>& studentai) {/*
         
 
     Stud naujasS;
@@ -98,7 +98,7 @@ while (true) {
         cout << e.what() << endl;
     }
 }
-    
+    */
 
 }
 

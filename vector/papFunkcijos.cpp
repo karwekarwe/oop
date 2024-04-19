@@ -6,7 +6,7 @@
 using namespace std;
 
     
-    double vidurkis (Stud& s) {
+    double vidurkis (Stud& s) {/*
         double suma = 0;
         double avg = 0;
         double gal;
@@ -56,5 +56,5 @@ try {
     catch (const std::invalid_argument& e) {
         cerr << e.what() << endl;
         return false;
-    }
+    }*/
 }
