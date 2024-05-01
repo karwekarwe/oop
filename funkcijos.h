@@ -9,6 +9,6 @@ double mediana(Stud&);
 void isFailo(const std::string& failPav, std::vector<Stud>& studentai);
 void failuGen(const std::string& failPav, int numRecords);
 void rusiavimasGen(const std::string& failPav, std::vector<Stud>& studentai);
-
+void ranka(std::vector<Stud>& studentai);
 
 #endif 

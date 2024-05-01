@@ -18,6 +18,14 @@ int main() {
 
 
         try {
+                char rf;
+                cout << "Ivestis ranka - 1, Is failo - 2" <<endl;
+                cin >> rf;
+
+                if (rf == '1') {
+                    ranka(studentai);
+                }
+                else if (rf == '2'){
                 char ne;
                 cout << "Generuoti nauja ar naudoti esama? (Nauja - N. Esama - E)" << endl;
                 cin >> ne;
@@ -87,7 +95,7 @@ int main() {
                     rusiavimasGen(failPav, studentai); 
                 }
             
-
+                }
 
         } catch (const invalid_argument& e) {
             cout << "Klaida: " << e.what() << " Prašome įvesti tinkamą pasirinkimą.\n";
