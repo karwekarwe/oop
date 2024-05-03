@@ -35,7 +35,7 @@ Testavimo rezultatai(milisekundemis):
 
 # 3 Strategija:
 
-3 strategijoje buvo panaudoti std::copy ir std::remove_if na6umo paspartinimui:
+3 strategijoje buvo panaudoti std::copy ir std::remove_if našumo paspartinimui:
 
 ![image](https://github.com/karwekarwe/OOP/assets/82239041/1acd4de6-0494-4b91-ab91-ad517dbd789e)
 
